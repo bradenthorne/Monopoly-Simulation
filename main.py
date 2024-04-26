@@ -8,8 +8,8 @@ import pandas as pd
 
 logging.basicConfig(filename='monopoly_log.log', level=logging.INFO, format='%(message)s', filemode='w')
 
-REPLICATIONS = 200
-TURNS = 30
+REPLICATIONS = 100
+TURNS = 50
 PLAYERS = 4
 
 def initialize_board(board):
@@ -332,4 +332,4 @@ if __name__ == "__main__":
             results_dict[key].append(value)
     df = pd.DataFrame.from_dict(results_dict, orient='index')
     df.columns = [f"Replication {i+1}" for i in range(REPLICATIONS)]
-    df.to_excel('Space Frequency Results.xlsx', sheet_name='Frequency Results')
+    df.to_excel('SpaceFrequencyResults.xlsx', sheet_name='Frequency Results')

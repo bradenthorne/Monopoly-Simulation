@@ -4,7 +4,7 @@ class Board:
     def __init__(self):
         self.spaces = {}
         self.players = []
-        chance_cards = [
+        self.chance_cards = [
             {"description": "Advance to Boardwalk", "action": "move", "destination": 39},
             {"description": "Advance to Go", "action": "move", "destination": 0},
             {"description": "Advance to Illinois Avenue", "action": "move", "destination": 24},
@@ -22,7 +22,7 @@ class Board:
             {"description": "Pay each player $50", "action": "pay money", "amount": 150},
             {"description": "Your building load matures", "action": "receive money", "amount": 150}]
 
-        community_chest_cards = [
+        self.community_chest_cards = [
             {"description": "Advance to Go", "action": "move", "destination": 0},
             {"description": "Bank error", "action": "receive money", "amount": 200},
             {"description": "Doctor's fee", "action": "pay money" , "amount": 50},
@@ -40,8 +40,8 @@ class Board:
             {"description": "Beauty Contest", "action": "receive money", "amount": 10},
             {"description": "Inheritance", "action": "receive money", "amount": 100}]
         
-        self.chance_cards = random.shuffle(chance_cards)
-        self.community_chest_cards = random.shuffle(community_chest_cards)
+        random.shuffle(self.chance_cards)
+        random.shuffle(self.community_chest_cards)
     
     def add_space(self, space):
         self.spaces[space.position] = space
