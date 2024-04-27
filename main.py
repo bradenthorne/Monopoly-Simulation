@@ -1,16 +1,19 @@
+import logging
+
+import pandas as pd
+from tqdm import tqdm
+
 from board import Board
 from player import Player
 from space import Street, Railroad, Utility, Tax, Card, Neutral
 from group import Group
-import logging
-
-import pandas as pd
 
 logging.basicConfig(filename='monopoly_log.log', level=logging.INFO, format='%(message)s', filemode='w')
 
-REPLICATIONS = 1
+REPLICATIONS = 100
 TURNS = 30
 PLAYERS = 4
+TRACK_SPACES = False
 
 def initialize_board(board):
     # Street information
@@ -324,12 +327,15 @@ def main():
 
 if __name__ == "__main__":
     results_dict = {}
-    for i in range(REPLICATIONS):
-        result = main()
-        for key, value in result.items():
-            if key not in results_dict:
-                results_dict[key] = []
-            results_dict[key].append(value)
-    df = pd.DataFrame.from_dict(results_dict, orient='index')
-    df.columns = [f"Replication {i+1}" for i in range(REPLICATIONS)]
-    df.to_excel('SpaceFrequencyResults.xlsx', sheet_name='Frequency Results')
+    for i in tqdm (range (REPLICATIONS), desc="Running..."):
+        if TRACK_SPACES:
+            result = main()
+            for key, value in result.items():
+                if key not in results_dict:
+                    results_dict[key] = []
+                results_dict[key].append(value)
+            df = pd.DataFrame.from_dict(results_dict, orient='index')
+            df.columns = [f"Replication {i+1}" for i in range(REPLICATIONS)]
+            df.to_excel('SpaceFrequencyResults.xlsx', sheet_name='Frequency Results')
+        else:
+            main()
