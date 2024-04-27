@@ -67,11 +67,13 @@ def main():
         for player in board.players:
             if player.status == "Active":
                 player.take_turn(board)
-    return {board.spaces[key].name: board.spaces[key].count for key,_ in board.spaces.items()}
+    if TRACK_SPACES:
+        return {board.spaces[key].name: board.spaces[key].count for key,_ in board.spaces.items()}
+
 
 if __name__ == "__main__":
     results_dict = {}
-    for i in tqdm (range (REPLICATIONS), desc="Running..."):
+    for i in tqdm (range(REPLICATIONS), desc="Running..."):
         if TRACK_SPACES:
             result = main()
             for key, value in result.items():
