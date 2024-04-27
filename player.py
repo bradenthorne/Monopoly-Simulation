@@ -41,32 +41,33 @@ class Player:
         else:
             card = board.community_chest_cards.pop(0)
             board.community_chest_cards.append(card)
-        if card['action'] == 'move':
-            self.teleport(card['destination'])
-        if card['action'] == 'receive money':
-            self.receive_money(card['amount'])
-        if card['action'] == 'pay money':
-            self.pay_money(card['amount'])
-        if card['action'] == 'get out of jail':
-            self.get_out_of_jail_inv += 1
-        if card['action'] == 'jail':
-            self.position = 10
-            self.in_jail = True
-        if card['action'] == 'three spaces':
-            self.position = (self.position + 3) % 40
-        if card['action'] == 'railroad':
-            if self.position == 7:
-                self.teleport(15)
-            if self.position == 22:
-                self.teleport(25)
-            if self.position == 36:
-                self.receive_money(200)
-                self.teleport(5)
-        if card['action'] == 'utility':
-            if self.position == 7 | 36:
-                self.position = 12
-            if self.position == 22:
-                self.position = 28
+        match card['action']:
+            case 'move':
+                self.teleport(card['destination'])
+            case 'receive money':
+                self.receive_money(card['amount'])
+            case 'pay money':
+                self.pay_money(card['amount'])
+            case 'get out of jail':
+                self.get_out_of_jail_inv += 1
+            case 'jail':
+                self.position = 10
+                self.in_jail = True
+            case 'three spaces':
+                self.position = (self.position + 3) % 40
+            case 'railroad':
+                if self.position == 7:
+                    self.teleport(15)
+                if self.position == 22:
+                    self.teleport(25)
+                if self.position == 36:
+                    self.receive_money(200)
+                    self.teleport(5)
+            case 'utility':
+                if self.position == 7 | 36:
+                    self.position = 12
+                if self.position == 22:
+                    self.position = 28
 
     def go_to_jail(self):
         self.position = 10

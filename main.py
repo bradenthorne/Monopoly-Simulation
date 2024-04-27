@@ -8,8 +8,8 @@ import pandas as pd
 
 logging.basicConfig(filename='monopoly_log.log', level=logging.INFO, format='%(message)s', filemode='w')
 
-REPLICATIONS = 100
-TURNS = 50
+REPLICATIONS = 1
+TURNS = 30
 PLAYERS = 4
 
 def initialize_board(board):
