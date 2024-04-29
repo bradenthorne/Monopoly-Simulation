@@ -1,7 +1,5 @@
 import random
 
-from group import Group
-
 class Board:
     def __init__(self):
         self.spaces = {}
@@ -16,8 +14,8 @@ class Board:
             {"description": "Advance to the nearest Utility", "action": "utility"},
             {"description": "Bank pays you a dividend of $50", "action": "receive money", "amount": 50},
             {"description": "Get Out of Jail Free", "action": "get out of jail"},
-            {"description": "Go back 3 spaces", "action": "three spaces"},
-            {"description": "Go to jail", "action": "jail"},
+            {"description": "Go back 3 spaces", "action": "go back three spaces"},
+            {"description": "Go to jail", "action": "go to jail"},
             {"description": "Make repairs on all your property", "action": "repairs"},
             {"description": "Speeding fine", "action": "pay money", "amount": 15},
             {"description": "Take a trip to Reading Railroad", "action": "move", "destination": 5},
@@ -30,7 +28,7 @@ class Board:
             {"description": "Doctor's fee", "action": "pay money" , "amount": 50},
             {"description": "Sale of stock", "action": "receive money", "amount": 50},
             {"description": "Get Out of Jail Free", "action": "get out of jail"},
-            {"description": "Go to Jail", "action": "jail"},
+            {"description": "Go to Jail", "action": "go to jail"},
             {"description": "Holiday fund", "action": "receive money", "amount": 100},
             {"description": "Income tax refund", "action":"receive money" , "amount": 20},
             {"description": "Birthday", "action": "receive money", "amount": 30},
@@ -38,7 +36,7 @@ class Board:
             {"description": "Hospital Fees", "action": "pay money", "amount": 100},
             {"description": "School Fees", "action": "pay money", "amount": 50},
             {"description": "Consultancy Fee", "action": "receive money", "amount": 25},
-            {"description": "Repair", "action": "repair"},
+            {"description": "Repair", "action": "repairs"},
             {"description": "Beauty Contest", "action": "receive money", "amount": 10},
             {"description": "Inheritance", "action": "receive money", "amount": 100}]
         
@@ -52,7 +50,7 @@ class Board:
                     "Price": 60,
                     "Rent": [2, 10, 30, 90, 160, 250],
                     "Building Cost": 50,
-                    "Group": Group.BROWN
+                    "Group": "Brown"
                 },
             "Baltic Avenue" : 
                 {
@@ -60,7 +58,7 @@ class Board:
                     "Price": 60,
                     "Rent": [4, 20, 60, 180, 320, 450],
                     "Building Cost": 50,
-                    "Group": Group.BROWN
+                    "Group": "Brown"
                 },
             "Oriental Avenue" : 
                 {
@@ -68,7 +66,7 @@ class Board:
                     "Price": 100,
                     "Rent": [6, 30, 90, 270, 400, 550],
                     "Building Cost": 50,
-                    "Group": Group.LIGHT_BLUE
+                    "Group": "Light Blue"
                 },
             "Vermont Avenue" : 
                 {
@@ -76,7 +74,7 @@ class Board:
                     "Price": 100,
                     "Rent": [6, 30, 90, 270, 400, 550],
                     "Building Cost": 50,
-                    "Group": Group.LIGHT_BLUE
+                    "Group": "Light Blue"
                 },
             "Connecticut Avenue" : 
                 {
@@ -84,7 +82,7 @@ class Board:
                     "Price": 120,
                     "Rent": [8, 40, 100, 300, 450, 600],
                     "Building Cost": 50,
-                    "Group": Group.LIGHT_BLUE
+                    "Group": "Light Blue"
                 },
             "St. Charles Place" : 
                 {
@@ -92,7 +90,7 @@ class Board:
                     "Price": 140,
                     "Rent": [10, 50, 150, 450, 625, 750],
                     "Building Cost": 100,
-                    "Group": Group.PINK
+                    "Group": "Pink"
                 },
             "States Avenue" : 
                 {
@@ -100,7 +98,7 @@ class Board:
                     "Price": 140,
                     "Rent": [10, 50, 150, 450, 625, 750],
                     "Building Cost": 100,
-                    "Group": Group.PINK
+                    "Group": "Pink"
                 },
             "Virginia Avenue" : 
                 {
@@ -108,7 +106,7 @@ class Board:
                     "Price": 160,
                     "Rent": [12, 60, 180, 500, 700, 900],
                     "Building Cost": 100,
-                    "Group": Group.PINK
+                    "Group": "Pink"
                 },
             "St. James Place" : 
                 {
@@ -116,7 +114,7 @@ class Board:
                     "Price": 180,
                     "Rent": [14, 70, 200, 550, 750, 950],
                     "Building Cost": 100,
-                    "Group": Group.ORANGE
+                    "Group": "Orange"
                 },
             "Tennessee Avenue" : 
                 {
@@ -124,7 +122,7 @@ class Board:
                     "Price": 180,
                     "Rent": [14, 70, 200, 550, 750, 950],
                     "Building Cost": 100,
-                    "Group": Group.ORANGE
+                    "Group": "Orange"
                 },
             "New York Avenue" : 
                 {
@@ -132,7 +130,7 @@ class Board:
                     "Price": 200,
                     "Rent": [16, 80, 220, 600, 800, 1000],
                     "Building Cost": 100,
-                    "Group": Group.ORANGE
+                    "Group": "Orange"
                 },
             "Kentucky Avenue" : 
                 {
@@ -140,7 +138,7 @@ class Board:
                     "Price": 220,
                     "Rent": [18, 90, 250, 700, 875, 1050],
                     "Building Cost": 150,
-                    "Group": Group.RED
+                    "Group": "Red"
                 },
             "Indiana Avenue" : 
                 {
@@ -148,7 +146,7 @@ class Board:
                     "Price": 220,
                     "Rent": [18, 90, 250, 700, 875, 1050],
                     "Building Cost": 150,
-                    "Group": Group.RED
+                    "Group": "Red"
                 },
             "Illinois Avenue" : 
                 {
@@ -156,7 +154,7 @@ class Board:
                     "Price": 240,
                     "Rent": [20, 100, 300, 750, 925, 1100],
                     "Building Cost": 150,
-                    "Group": Group.RED
+                    "Group": "Red"
                 },
             "Atlantic Avenue" : 
                 {
@@ -164,7 +162,7 @@ class Board:
                     "Price": 260,
                     "Rent": [22, 110, 330, 800, 975, 1150],
                     "Building Cost": 150,
-                    "Group": Group.YELLOW
+                    "Group": "Yellow"
                 },
             "Ventnor Avenue" : 
                 {
@@ -172,7 +170,7 @@ class Board:
                     "Price": 260,
                     "Rent": [22, 110, 330, 800, 975, 1150],
                     "Building Cost": 150,
-                    "Group": Group.YELLOW
+                    "Group": "Yellow"
                 },
             "Marvin Gardens" : 
                 {
@@ -180,7 +178,7 @@ class Board:
                     "Price": 280,
                     "Rent": [24, 120, 360, 850, 1025, 1200],
                     "Building Cost": 150,
-                    "Group": Group.YELLOW
+                    "Group": "Yellow"
                 },
             "Pacific Avenue" : 
                 {
@@ -188,7 +186,7 @@ class Board:
                     "Price": 300,
                     "Rent": [26, 130, 390, 900, 1100, 1275],
                     "Building Cost": 200,
-                    "Group": Group.GREEN
+                    "Group": "Green"
                 },
             "North Carolina Avenue" : 
                 {
@@ -196,7 +194,7 @@ class Board:
                     "Price": 300,
                     "Rent": [26, 130, 390, 900, 1100, 1275],
                     "Building Cost": 200,
-                    "Group": Group.GREEN
+                    "Group": "Green"
                 },
             "Pennsylvania Avenue" : 
                 {
@@ -204,7 +202,7 @@ class Board:
                     "Price": 320,
                     "Rent": [28, 150, 450, 1000, 1200, 1400],
                     "Building Cost": 200,
-                    "Group": Group.GREEN
+                    "Group": "Green"
                 },
             "Park Place" : 
                 {
@@ -212,7 +210,7 @@ class Board:
                     "Price": 350,
                     "Rent": [35, 175, 500, 1100, 1300, 1500],
                     "Building Cost": 200,
-                    "Group": Group.DARK_BLUE
+                    "Group": "Dark Blue"
                 },
             "Boardwalk" : 
                 {
@@ -220,7 +218,7 @@ class Board:
                     "Price": 400,
                     "Rent": [50, 200, 600, 1400, 1700, 2000],
                     "Building Cost": 200,
-                    "Group": Group.DARK_BLUE
+                    "Group": "Dark Blue"
                 }
         }
 
@@ -250,6 +248,7 @@ class Board:
                     "Rent": [25, 50, 100, 200]
                 }
         }
+        
         self.utility_dict = {
             "Electric Company" : 
                 {
@@ -306,6 +305,8 @@ class Board:
                 }
         }
         
+        self.monopoly_counts = {"Brown": 2, "Light Blue": 3, "Pink": 3, "Orange": 3, "Red": 3, "Yellow": 3, "Green": 3, "Dark Blue": 2, "Railroad": 4, "Utility": 2}
+
     def add_space(self, space):
         self.spaces[space.position] = space
     

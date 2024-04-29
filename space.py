@@ -4,12 +4,14 @@ class Space():
         self.position = position
         self.type = type
         self.count = 0
+        self.is_property = False
 
 class Property(Space):
     def __init__(self, name, position, price, type):
         super().__init__(name, position, "Property")
         self.price = price
         self.type = type
+        self.is_property = True
         self.owner = None
 
     def set_owner(self, player):
@@ -25,45 +27,44 @@ class Street(Property):
         self.building_cost = building_cost
         self.houses = 0
         self.group = group
+        self.current_rent = self.rent_list[self.houses]
     
     def add_houses(self, quantity):
         if self.houses + quantity <= 5:
             self.houses += quantity
             super().owner.pay_money(self.building_cost * quantity)
         else:
-            return False
+            return
     
     def remove_houses(self, quantity):
         if self.houses - quantity >= 0:
             self.houses -= quantity
             super().owner.receive_money(self.building_cost * quantity * 0.5)
         else:
-            return False
+            return
 
 class Railroad(Property):
     def __init__(self, name, position, price, rent_list):
         super().__init__(name, position, price, "Railroad")
         self.rent_list = rent_list
+        self.current_rent = 100 # Adjust later
+        self.group = "Railroad"
 
 class Utility(Property):
     def __init__(self, name, position, price):
         super().__init__(name, position, price, "Utility")
+        self.current_rent = 100 # Adjust later
+        self.group = "Utility"
 
-class Event(Space):
-    def __init__(self, name, position, type):
-        super().__init__(name, position, "Event")
-        self.type = type
-
-class Tax(Event):
+class Tax(Space):
     def __init__(self, name, position, amount):
         super().__init__(name, position, "Tax")
         self.amount = amount
 
-class Card(Event):
-    def __init__(self, name, position, type):
+class Card(Space):
+    def __init__(self, name, position):
         super().__init__(name, position, "Card")
-        self.type = type
 
-class Neutral(Event):
+class Neutral(Space):
     def __init__(self, name, position):
         super().__init__(name, position, "Neutral")

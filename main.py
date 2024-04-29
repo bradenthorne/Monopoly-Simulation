@@ -9,8 +9,8 @@ from space import Street, Railroad, Utility, Tax, Card, Neutral
 
 logging.basicConfig(filename='monopoly_log.log', level=logging.INFO, format='%(message)s', filemode='w')
 
-REPLICATIONS = 100
-TURNS = 30
+REPLICATIONS = 1
+TURNS = 50
 PLAYERS = 4
 TRACK_SPACES = False
 
@@ -42,9 +42,9 @@ def initialize_board(board):
     
     # Add cards to board
     card_dict = board.card_dict
-    for card_name, card_info in card_dict.items():
+    for deck, card_info in card_dict.items():
         for position in card_info["Positions"]:
-            card = Card(card_name, position, card_name)
+            card = Card(deck, position)
             board.add_space(card)
 
     # Add neutrals to board
@@ -55,7 +55,7 @@ def initialize_board(board):
     
     # Add players to board
     for i in range(1, PLAYERS + 1):
-        player = Player(i)
+        player = Player(i, 1)
         board.add_player(player)
 
 # Game loop
