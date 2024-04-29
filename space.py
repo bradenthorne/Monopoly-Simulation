@@ -5,6 +5,7 @@ class Space():
         self.type = type
         self.count = 0
         self.is_property = False
+        self.can_buy_houses = False
 
 class Property(Space):
     def __init__(self, name, position, price, type):
@@ -27,21 +28,26 @@ class Street(Property):
         self.building_cost = building_cost
         self.houses = 0
         self.group = group
-        self.current_rent = self.rent_list[self.houses]
+        self.current_rent = self.rent_list[0]
+        self.can_buy_houses = True
     
     def add_houses(self, quantity):
         if self.houses + quantity <= 5:
             self.houses += quantity
-            super().owner.pay_money(self.building_cost * quantity)
+            self.owner.pay_money(self.building_cost * quantity)
+            self.update_rent()
         else:
             return
     
     def remove_houses(self, quantity):
         if self.houses - quantity >= 0:
             self.houses -= quantity
-            super().owner.receive_money(self.building_cost * quantity * 0.5)
+            self.owner.receive_money(self.building_cost * quantity * 0.5)
         else:
             return
+    
+    def update_rent(self):
+        self.current_rent = self.rent_list[self.houses]
 
 class Railroad(Property):
     def __init__(self, name, position, price, rent_list):

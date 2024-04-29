@@ -1,4 +1,5 @@
 import random
+import logging
 
 class Board:
     def __init__(self):
@@ -304,11 +305,26 @@ class Board:
                     "Position": 30
                 }
         }
-        
-        self.monopoly_counts = {"Brown": 2, "Light Blue": 3, "Pink": 3, "Orange": 3, "Red": 3, "Yellow": 3, "Green": 3, "Dark Blue": 2, "Railroad": 4, "Utility": 2}
+    
+        self.monopoly_dict = {}
+
+        self.monopoly_counts = {}
 
     def add_space(self, space):
         self.spaces[space.position] = space
     
     def add_player(self, player):
         self.players.append(player)
+    
+    def log_player_info(self):
+        for player in self.players:
+            if player.status == 'Active':
+                logging.info(f"Player {player.player_number} Information:")
+                logging.info(f"Cash: $ {player.money}")
+                logging.info(f"Properties: {[property.name for property in player.properties]}")
+                logging.info(f"Houses: {[(property.name, property.houses) for property in player.properties if property.can_buy_houses]}")
+                logging.info(f"Property Count: {player.property_count}")
+                logging.info(f"Monopolies: {player.monopolies}")
+    
+    def get_active_players(self):
+        return [player for player in self.players if player.status == 'Active']
