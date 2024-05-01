@@ -116,12 +116,12 @@ class Player:
             other.monopolies.extend(self.monopolies)
             for key, value in self.property_count.items():
                 other.property_count[key] = other.property_count.get(key, 0) + value
+            logging.info(f"Player {other.player_number} now has {[property.name for property in other.properties]}")
             self.clear_properties()
         else:
             for property in self.properties:
                 property.clear_owner()
             self.clear_properties()
-            logging.info(f"Player {other.player_number} now has {[property.name for property in other.properties]}")
         logging.info(f"Player {self.player_number} has been eliminated")
 
     def end_turn(self, board):
@@ -145,6 +145,8 @@ class Player:
         self.money -= amount
         if other is not None:
             other.money += amount
+        if self.money <= 0:
+            self.eliminate_player(other)
     
     def receive_money(self, amount):
         self.money += amount
@@ -153,6 +155,7 @@ class Player:
         self.pay_money(property.price)
         self.properties.append(property)
         property.set_owner(self)
+        property.money_invested += property.price
         if property.group in self.property_count.keys():
             self.property_count[property.group] += 1
         else:
@@ -163,12 +166,15 @@ class Player:
         owner = property.owner
         exchange_balance = min(property.current_rent, self.money)
         self.pay_money(exchange_balance, owner)
+        property.rent_collected += exchange_balance
         self.log_rent_payment(owner, exchange_balance)
-        if self.money == 0:
-            self.eliminate_player(owner)
+        # if self.money == 0:
+        #     self.eliminate_player(owner)
 
     def pay_tax(self, space):
         self.pay_money(space.amount)
+        # if self.money <= 0:
+        #     self.eliminate_player()
         self.log_tax(space.amount)
     
     def build_houses(self, board):

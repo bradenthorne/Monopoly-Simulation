@@ -9,10 +9,11 @@ from space import Street, Railroad, Utility, Tax, Card, Neutral
 
 logging.basicConfig(filename='monopoly_log.log', level=logging.INFO, format='%(message)s', filemode='w')
 
-REPLICATIONS = 1
+REPLICATIONS = 1000
 TURNS = 50
 PLAYERS = 4
 TRACK_SPACES = False
+TRACK_ROI = False
 
 def initialize_board(board):
 
@@ -75,7 +76,7 @@ def main():
     initialize_board(board)
     for turn in range(TURNS):
         if len(board.get_active_players()) == 1:
-            return
+            break
         logging.info(f"Turn {turn + 1}")
         for player in board.players:
             if player.status == "Active":
@@ -83,10 +84,14 @@ def main():
         board.log_player_info()
     if TRACK_SPACES:
         return {board.spaces[key].name: board.spaces[key].count for key,_ in board.spaces.items()}
+    if TRACK_ROI:
+        return {board.spaces[key].name: {"Money Invested": board.spaces[key].money_invested, "Rent Collected": board.spaces[key].rent_collected} for key,_ in board.spaces.items() if board.spaces[key].is_property}
 
 
 if __name__ == "__main__":
     results_dict = {}
+    investment_dict = {}
+    rent_dict = {}
     for i in tqdm (range(REPLICATIONS), desc="Running..."):
         if TRACK_SPACES:
             result = main()
@@ -97,5 +102,19 @@ if __name__ == "__main__":
             df = pd.DataFrame.from_dict(results_dict, orient='index')
             df.columns = [f"Replication {i+1}" for i in range(REPLICATIONS)]
             df.to_excel('SpaceFrequencyResults.xlsx', sheet_name='Frequency Results')
+        elif TRACK_ROI:
+            result = main()
+            for key, value in result.items():
+                if key not in investment_dict:
+                    investment_dict[key] = []
+                    rent_dict[key] = []
+                investment_dict[key].append(value["Money Invested"])
+                rent_dict[key].append(value["Rent Collected"])
+            investment_df = pd.DataFrame.from_dict(investment_dict, orient='index')
+            rent_df = pd.DataFrame.from_dict(rent_dict, orient='index')
+            writer = pd.ExcelWriter('ROI_Results.xlsx', engine='xlsxwriter')
+            investment_df.to_excel(writer, sheet_name='Money Invested')
+            rent_df.to_excel(writer, sheet_name='Rent Collected')
+            writer.close()
         else:
             main()

@@ -14,6 +14,8 @@ class Property(Space):
         self.type = type
         self.is_property = True
         self.owner = None
+        self.rent_collected = 0
+        self.money_invested = 0
 
     def set_owner(self, player):
         self.owner = player
@@ -35,6 +37,7 @@ class Street(Property):
         if self.houses + quantity <= 5:
             self.houses += quantity
             self.owner.pay_money(self.building_cost * quantity)
+            self.money_invested += self.building_cost * quantity
             self.update_rent()
         else:
             return
